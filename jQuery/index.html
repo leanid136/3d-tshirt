@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>3D-TShirt-Design</title>
+		<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+		<link rel="stylesheet" href="stylesheets/bootstrap-combined.min.css">
+		<link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+		<link rel='stylesheet' href='stylesheets/style.css' />
+		<link rel="stylesheet" href="stylesheets/jquery-ui.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			#page-head, #page-content {
+				position: relative;
+				padding: 0px 15px 0;
+			}
+			.main_container_action{
+				padding: 20px;
+				background-color: #dbdbdb;
+			}
+			#container{
+				background-color: #fff;
+			}
+			.control-panel-div{
+				padding-top: 10px;
+				padding-bottom: 30px;
+			}
+			
+			.cus_switch_group{
+				display: flex;
+			}
+			.cus_label{
+				line-height: 25px;
+				margin-right: 10px;
+				margin-left: 10px;
+				font-size: 14px;
+			}
+			.cus_switch {
+			  position: relative;
+			  display: inline-block;
+			  width: 50px;
+			  height: 27px;
+			} 
+			.cus_switch input {display:none;} 
+			.cus_slider {
+			  position: absolute;
+			  cursor: pointer;
+			  overflow: hidden;
+			  top: 0;
+			  left: 0;
+			  right: 0;
+			  bottom: 0;
+			  background-color: #f2f2f2;
+			  -webkit-transition: .4s;
+			  transition: .4s;
+			} 
+			.cus_slider:before {
+				position: absolute;
+				z-index: 2;
+				content: "";
+				height: 24px;
+				width: 24px;
+				left: 2px;
+				bottom: 2px;
+				background-color: darkslategrey;
+				-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+				-webkit-transition: .4s;
+				transition: all 0.4s ease-in-out;
+			}
+			.cus_slider:after {
+				position: absolute;
+				left: 0;
+				z-index: 1;
+				content: "";
+				font-size: 23px;
+				text-align: left !important;
+				line-height: 23px;
+				padding-left: 0;
+				width: 50px;
+				color: #fff;
+				height: 25px;
+				border-radius: 25px;
+				background-color: #ff6418;
+				-webkit-transform: translateX(-90px);
+				-ms-transform: translateX(-90px);
+				transform: translateX(-90px);
+				transition: all 0.4s ease-in-out;
+			}
+			input:checked + .cus_slider:after {
+			  -webkit-transform: translateX(0px);
+			  -ms-transform: translateX(0px);
+			  transform: translateX(0px); 
+			  padding-left: 25px;
+			} 
+			input:checked + .cus_slider:before {
+			  background-color: #fff; 
+			} 
+			input:checked + .cus_slider:before {
+			  -webkit-transform: translateX(24px);
+			  -ms-transform: translateX(24px);
+			  transform: translateX(24px);
+			}
+
+			/* Rounded sliders */
+			.cus_slider.cus_round {
+			  border-radius: 50px;
+			} 
+			.cus_slider.cus_round:before {
+			  border-radius: 50%;
+			}
+			.cus_absolute-no {
+				position: absolute;
+				left: 0;
+				color: darkslategrey;
+				text-align: right !important;
+				font-size: 23px;
+				width: calc(100% - 25px);
+				height: 100px;
+				line-height: 47px;
+				cursor: pointer;
+			}  
+			
+			
+			/******************** Slider Range *****************************/
+			.sliderbar-group{
+				position: relative;
+			}
+			.sliderbar-group .sacle{
+				position: absolute;
+				left: 50%;
+				top: -4px;
+				border-left: 2px solid #000;
+				height: 28px;
+			}
+			
+			.form-label-val{
+				font-size: 19px;
+			}
+			
+			.slider{
+				-webkit-appearance: none;
+				width: 100%;
+				height: 18px;
+				background: #d3d3d3;
+				outline: none;
+				opacity: 0.7;
+				-webkit-transition: .2s;
+				transition: opacity .2s;
+				border-radius: 10px;
+			} 
+			.slider::-webkit-slider-thumb {
+				  -webkit-appearance: none;
+				  appearance: none;
+				  width: 28px;
+				  height: 28px;
+				  border-radius: 50%;
+				  background: #869590;
+				  cursor: pointer;
+			} 
+			.slider::-moz-range-thumb {
+			  width: 28px;
+			  height: 28px;
+			  border-radius: 50%;
+			  background: #869590;
+			  cursor: pointer;
+			}
+			/*************************************/
+			.mar-top{
+				margin-top: 15px;
+			}
+			.mar-right-15{
+				margin-right: 15px;
+			}
+			/**************************************/
+			.pattern-group{
+				display:  flex;
+				position: relative;
+				overflow: scroll;
+				margin-top: 20px;
+			}
+			.pattern-group .pattern-item{
+				padding-left: 18px;
+				padding-right: 18px;
+			}
+			
+			/*************** ARROW *************************/ 
+			.custom-arrow {
+			  border: solid black;
+			  border-width: 0 3px 3px 0;
+			  display: inline-block;
+			  padding: 10px;
+			}
+			
+			.custom-down {
+			  transform: rotate(45deg);
+			  -webkit-transform: rotate(45deg);
+			}
+			
+			.custom-up {
+			  transform: rotate(-135deg);
+			  -webkit-transform: rotate(-135deg);
+			}
+			
+			/************************************************/
+			.addon-action-button{
+				cursor: pointer;
+			}
+			.addon-group{
+				display:none;
+			}
+			.addon-group.active{
+				display:block;
+			}
+		</style> 
+	</head>
+	<body>
+		<div id="page-content"> 
+			<div class="row">
+				<div class="col-xs-12 col-md-8 main_container_action"> 
+					<div class="lab" id="container"></div> 
+				</div>
+				<div class="col-xs-12 col-md-4 control-panel-div"> 
+					<div class = "row mar-top">
+						<div class = "col-xs-6">
+							<div class = "cus_switch_group">
+								<p class = "cus_label"> Front </p>
+								<label class="cus_switch">
+								  <input id = "cus_switch" type="checkbox" checked>
+								  <span class="cus_slider cus_round"></span>
+								  <span class="cus_absolute-no"></span>
+								</label>
+								<p class = "cus_label"> Back </p>
+							</div>
+						</div>
+						<div class = "col-xs-6">
+							<p class = "text-center"> More Options chat with us </p>
+							<div class = "form-group">
+								<input class = "form-control"  />
+							</div>
+						</div>
+					</div> 
+					<div class = "row"> 
+						<div class = "col-xs-12"> 
+							<label for="size_slider" class="form-label">Size</label>
+							<input type="range" class="form-range slider"  min="1" max="100" value = "50" class="slider"  id="size_slider"> 
+						</div> 
+						<div class = "col-xs-12 mar-top"> 
+							<label for="vertical_placing_slider" class="form-label">
+								Vertical Placing : <strong class = "vertical_placing_label form-label-val"> </strong>
+							</label>
+							<div class = "sliderbar-group">
+								<input type="range" class="form-range slider"  min="0" max="30" value="15" class="slider"  id="vertical_placing_slider"> 
+								<p class = "sacle"> </p>
+							</div>
+						</div>
+						<div class = "col-xs-12 mar-top"> 
+							<label for = "horizontal_placing_slider" class="form-label">
+								Horizontal Placing: <strong class = "horizontal_placing_label form-label-val"> </strong>
+							</label>
+							<div class = "sliderbar-group">
+								<input type="range" class="form-range slider"  min="0" max="30" value="15" class="slider"  id="horizontal_placing_slider"> 
+								<p class = "sacle"> </p>
+							</div> 
+						</div> 
+					</div>
+					<div class = "row mar-top">
+						<div class = "addon-group">
+							<div class = "col-xs-12">
+								<p> <small> Add-ons </small> </p> 
+							</div> 
+							<div class = "col-xs-12">
+								<div class = "cus_switch_group">
+									<p class = "cus_label mar-right-15"> A </p>
+									<label class="cus_switch">
+									  <input type="checkbox" checked>
+									  <span class="cus_slider cus_round"></span>
+									  <span class="cus_absolute-no"></span>
+									</label> 
+								</div>
+							</div>
+							<div class = "col-xs-12">
+								<div class = "cus_switch_group">
+									<p class = "cus_label mar-right-15"> B </p>
+									<label class="cus_switch">
+									  <input type="checkbox" checked>
+									  <span class="cus_slider cus_round"></span>
+									  <span class="cus_absolute-no"></span>
+									</label> 
+								</div>
+							</div>
+							<div class = "col-xs-12">
+								<div class = "cus_switch_group">
+									<p class = "cus_label mar-right-15"> C </p>
+									<label class="cus_switch">
+									  <input type="checkbox" checked>
+									  <span class="cus_slider cus_round"></span>
+									  <span class="cus_absolute-no"></span>
+									</label> 
+								</div>
+							</div>
+						</div>
+						
+						<div class = "col-xs-12 text-center">
+							<i class="custom-arrow custom-down addon-action-button"></i>
+						</div>
+						
+					</div>					
+					<div class = "row">
+						<div class = "col-xs-12 mar-top">
+							<div class = "pattern-group">
+								<div class = "pattern-item" data-pattern = "pattern1.png">
+									<img src = "assets/pattern/pattern1.png" />
+								</div> 
+								<div class = "pattern-item" data-pattern = "pattern2.png">
+									<img src = "assets/pattern/pattern2.png" />
+								</div> 
+								<div class = "pattern-item" data-pattern = "pattern3.png">
+									<img src = "assets/pattern/pattern3.png" />
+								</div> 
+								<div class = "pattern-item" data-pattern = "pattern4.png">
+									<img src = "assets/pattern/pattern4.png" />
+								</div> 
+							</div>
+						</div>
+					</div>
+				</div> 
+			</div>
+
+			<div id="svgContainer" style="display:none;"> </div>
+			<div id="svgPathContainer" style="display:none;"> </div> 
+		</div>
+		<script type="text/javascript" src="javascripts/jquery/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="javascripts/three-min/three.min.js"></script>
+		<script type="text/javascript" src="javascripts/three/LoaderSupport.js"></script>
+		<script type="text/javascript" src="javascripts/three/OrbitControls.js"></script> 
+		<script type="text/javascript" src="javascripts/three/OBJLoader2.js"></script> 
+		<script type="text/javascript" src="javascripts/three/Detector.js"></script>
+		<script type="text/javascript" src="javascripts/lib/dat.gui.min.js"></script>
+		<script src="javascripts/lib/jquery-1.12.4.js"></script>
+		<script src="javascripts/lib/jquery-ui.js"></script> 
+		<script type="text/javascript" src="javascripts/main_s.js"></script> 
+		<script></script>
+	</body>
+</html>
